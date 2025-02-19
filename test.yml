@@ -1,0 +1,65 @@
+defines:
+  - name: MAX_BUFFER_SIZE
+    value: 1024
+enums:
+  - name: Status
+    values:
+      - name: OK
+        value: 0
+      - name: ERROR
+      - name: INPROGRESS
+      - name: TEST
+        value: 10
+
+functions:
+    - return_type: void
+      name: example_function1
+      params:
+        - arg1:
+            type: int16
+        - arg2:
+            type: float
+    - return_type: void
+      name: example_function2
+      params:
+        - arg1:
+            type: int16
+        - arg2:
+            type: float
+
+classes:
+  - name: test
+    fields:
+      - test:
+          type: int16
+      - vasya:
+          type: int16
+    functions:
+      - return_type: void
+        name: example_function3
+        params:
+          - arg1:
+              type: int16
+          - arg2:
+              type: float
+      - return_type: void
+        name: example_function4
+        params:
+          - arg1:
+              type: int16
+          - arg2:
+              type: float
+  - name: test2
+    fields:
+      - test:
+          type: int16
+      - vasya:
+          type: int16
+    functions:
+      - return_type: void
+        name: example_function
+        params:
+          - arg1:
+              type: int16
+          - arg2:
+              type: float

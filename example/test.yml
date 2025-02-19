@@ -10,29 +10,30 @@ enums:
       - name: INPROGRESS
       - name: TEST
         value: 10
+      - name: TEST2
 
 functions:
-    - return_type: void
-      name: example_function1
-      params:
-        - arg1:
-            type: int16
-        - arg2:
-            type: float
-    - return_type: void
-      name: example_function2
-      params:
-        - arg1:
-            type: int16
-        - arg2:
-            type: float
+  - return_type: void
+    name: example_function1
+    params:
+      - arg1:
+          type: int16
+      - arg2:
+          type: float
+  - return_type: void
+    name: example_function2
+    params:
+      - arg1:
+          type: int16
+      - arg2:
+          type: float
 
 classes:
   - name: test
     fields:
-      - test:
+      - id:
           type: int16
-      - vasya:
+      - value:
           type: int16
     functions:
       - return_type: void
@@ -49,11 +50,15 @@ classes:
               type: int16
           - arg2:
               type: float
-  - name: test2
+  - name: system
     fields:
-      - test:
+      - id:
           type: int16
-      - vasya:
+      - voltage0:
+          type: int16
+      - voltage1:
+          type: int16
+      - voltage2:
           type: int16
     functions:
       - return_type: void

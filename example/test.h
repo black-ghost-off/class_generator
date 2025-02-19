@@ -10,6 +10,7 @@ typedef enum Status {
     ERROR,
     INPROGRESS,
     TEST = 10,
+    TEST2,
 } Status;
 
 void example_function1(int16_t arg1, float arg2);
@@ -17,30 +18,36 @@ void example_function2(int16_t arg1, float arg2);
 
 
 typedef struct test {
-    int16_t test;
-    int16_t vasya;
+    int16_t id;
+    int16_t value;
 } test;
 
-int16_t test_get_test(const test* self);
-void test_set_test(test* self, int16_t value);
-int16_t test_get_vasya(const test* self);
-void test_set_vasya(test* self, int16_t value);
+int16_t test_get_id(const test* self);
+void test_set_id(test* self, int16_t value);
+int16_t test_get_value(const test* self);
+void test_set_value(test* self, int16_t value);
 
 void test_example_function3(struct test, int16_t arg1, float arg2);
 void test_example_function4(struct test, int16_t arg1, float arg2);
 
 
-typedef struct test2 {
-    int16_t test;
-    int16_t vasya;
-} test2;
+typedef struct system {
+    int16_t id;
+    int16_t voltage0;
+    int16_t voltage1;
+    int16_t voltage2;
+} system;
 
-int16_t test2_get_test(const test2* self);
-void test2_set_test(test2* self, int16_t value);
-int16_t test2_get_vasya(const test2* self);
-void test2_set_vasya(test2* self, int16_t value);
+int16_t system_get_id(const system* self);
+void system_set_id(system* self, int16_t value);
+int16_t system_get_voltage0(const system* self);
+void system_set_voltage0(system* self, int16_t value);
+int16_t system_get_voltage1(const system* self);
+void system_set_voltage1(system* self, int16_t value);
+int16_t system_get_voltage2(const system* self);
+void system_set_voltage2(system* self, int16_t value);
 
-void test2_example_function(struct test2, int16_t arg1, float arg2);
+void system_example_function(struct system, int16_t arg1, float arg2);
 
 
 #endif // EXAMPLE_TEST_H

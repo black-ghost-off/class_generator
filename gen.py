@@ -41,12 +41,12 @@ def yaml_to_header(yaml_file, header_file, language):
         if(language == "cpp" or language == "c"):
             file.write(f"#ifndef {replace_letters_with_underscore(header_file.upper())}\n")
             file.write(f"#define {replace_letters_with_underscore(header_file.upper())}\n\n")
-            file.write("#include <stdio.h>\n\n")
+            file.write(f"#include <stdio.h>\n\n")
             
             # Handle defines
             for define in defines:
                 file.write(f"#define {define['name']} {define['value']}\n")
-            file.write("\n")
+            file.write(f"\n")
             
             # Handle enums
             for enum in enums:
@@ -67,7 +67,7 @@ def yaml_to_header(yaml_file, header_file, language):
                         param_list.append(f"{param_type} {param_name}")
                 file.write(f"{yaml_name_to_lang(function['return_type'], 'c')} {function['name']}({', '.join(param_list)});\n")
 
-            file.write("\n\n")     
+            file.write(f"\n\n")     
 
             if language.lower() == "c":
                 for class_info in classes:
@@ -87,7 +87,7 @@ def yaml_to_header(yaml_file, header_file, language):
                             file.write(f"{field_type} {struct_name}_get_{field_name}(const {struct_name}* self);\n")  
                             file.write(f"void {struct_name}_set_{field_name}({struct_name}* self, {field_type} value);\n")
 
-                    file.write("\n")
+                    file.write(f"\n")
 
                     for function in class_info.get('functions', []):
                         param_list = []
@@ -96,30 +96,32 @@ def yaml_to_header(yaml_file, header_file, language):
                                 param_type = yaml_name_to_lang(param_info['type'], 'c')
                                 param_list.append(f"{param_type} {param_name}")
                         file.write(f"{yaml_name_to_lang(function['return_type'], 'c')} {struct_name}_{function['name']}(struct {struct_name}, {', '.join(param_list)});\n")
-                    file.write("\n\n")
+                    file.write(f"\n\n")
                                 
             # C++ class part
             if language.lower() == "cpp":
                 for class_info in classes:
                     struct_name = class_info['name']
                     file.write(f"class {struct_name} {{\n")
-                    file.write("private:\n")
-                    
+                    file.write(f"private:\n")
+                    file.write(f"    struct Struct {{\n")
+
                     for field in class_info.get('fields', []):
                         for field_name, field_info in field.items():
                             field_type = yaml_name_to_lang(field_info['type'], "c")
-                            file.write(f"    {field_type} {field_name};\n")
+                            file.write(f"       {field_type} {field_name};\n")
+                    file.write(f"    }};\n")
 
-                    file.write("public:\n")
+                    file.write(f"public:\n")
                     file.write(f"    {struct_name}();\n")
                     file.write(f"    ~{struct_name}();\n")
 
-                    file.write("\n")
+                    file.write(f"\n")
 
-                    file.write(f"    void serialize(char* buffer) const;\n")
-                    file.write(f"    void deserialize(const char* buffer);\n")
+                    file.write(f"    void serialize(char* buffer, int buffer_size);\n")
+                    file.write(f"    void deserialize(const char* buffer, int buffer_size);\n")
 
-                    file.write("\n")
+                    file.write(f"\n")
 
                     for field in class_info.get('fields', []):
                         for field_name, field_info in field.items():
@@ -127,7 +129,7 @@ def yaml_to_header(yaml_file, header_file, language):
                             file.write(f"    {field_type} get_{field_name}();\n")
                             file.write(f"    void set_{field_name}({field_type} value);\n")
 
-                    file.write("\n")
+                    file.write(f"\n")
 
                     for function in class_info.get('functions', []):
                         param_list = []
@@ -137,12 +139,12 @@ def yaml_to_header(yaml_file, header_file, language):
                                 param_list.append(f"{param_type} {param_name}")
                         file.write(f"    {yaml_name_to_lang(function['return_type'], 'c')} {function['name']}({', '.join(param_list)});\n")
                     
-                    file.write("};\n\n\n")
+                    file.write(f"}};\n\n\n")
 
             file.write(f"#endif // {replace_letters_with_underscore(header_file.upper())}")
 
         elif language.lower() == "python":
-            file.write("import numpy as np\n")
+            file.write(f"import numpy as np\n")
 
             # Handle defines as class-level constants
             for define in defines:
@@ -188,7 +190,7 @@ def yaml_to_header(yaml_file, header_file, language):
                     for field_name, field_info in field.items():
                         file.write(f"   {field_name} = None \n")
 
-                file.write("\n")
+                file.write(f"\n")
                 # Add methods for serialization and deserialization
                 file.write(f"   def serialize(self):\n")
                 for field in class_info.get('fields', []):
@@ -196,7 +198,7 @@ def yaml_to_header(yaml_file, header_file, language):
                         file.write(f"       self.structure[\"{field_name}\"] = self.{field_name} \n")
                 file.write(f"       return self.structure.tobytes()\n")
 
-                file.write("\n")
+                file.write(f"\n")
 
                 file.write(f"   def deserialize(self, data):\n")
                 file.write(f"       deserialized_struct = np.frombuffer(data, dtype={struct_name}.struct)\n")

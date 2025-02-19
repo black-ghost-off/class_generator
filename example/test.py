@@ -7,6 +7,7 @@ class Status:
     ERROR = 1
     INPROGRESS = 2
     TEST = 10
+    TEST2 = 11
 
 def example_function1(arg1, arg2):
    pass
@@ -17,22 +18,22 @@ def example_function2(arg1, arg2):
 
 class test:
    structure = np.dtype([
-    ("test", np.int16),
-    ("vasya", np.int16),
+    ("id", np.int16),
+    ("value", np.int16),
    ])
 
-   test = None 
-   vasya = None 
+   id = None 
+   value = None 
 
    def serialize(self):
-       self.structure["test"] = self.test 
-       self.structure["vasya"] = self.vasya 
+       self.structure["id"] = self.id 
+       self.structure["value"] = self.value 
        return self.structure.tobytes()
 
    def deserialize(self, data):
        deserialized_struct = np.frombuffer(data, dtype=test.struct)
-       self.test = deserialized_struct["test"] 
-       self.vasya = deserialized_struct["vasya"] 
+       self.id = deserialized_struct["id"] 
+       self.value = deserialized_struct["value"] 
 
    def example_function3(self, arg1, arg2):
        pass
@@ -41,24 +42,32 @@ class test:
        pass
 
 
-class test2:
+class system:
    structure = np.dtype([
-    ("test", np.int16),
-    ("vasya", np.int16),
+    ("id", np.int16),
+    ("voltage0", np.int16),
+    ("voltage1", np.int16),
+    ("voltage2", np.int16),
    ])
 
-   test = None 
-   vasya = None 
+   id = None 
+   voltage0 = None 
+   voltage1 = None 
+   voltage2 = None 
 
    def serialize(self):
-       self.structure["test"] = self.test 
-       self.structure["vasya"] = self.vasya 
+       self.structure["id"] = self.id 
+       self.structure["voltage0"] = self.voltage0 
+       self.structure["voltage1"] = self.voltage1 
+       self.structure["voltage2"] = self.voltage2 
        return self.structure.tobytes()
 
    def deserialize(self, data):
-       deserialized_struct = np.frombuffer(data, dtype=test2.struct)
-       self.test = deserialized_struct["test"] 
-       self.vasya = deserialized_struct["vasya"] 
+       deserialized_struct = np.frombuffer(data, dtype=system.struct)
+       self.id = deserialized_struct["id"] 
+       self.voltage0 = deserialized_struct["voltage0"] 
+       self.voltage1 = deserialized_struct["voltage1"] 
+       self.voltage2 = deserialized_struct["voltage2"] 
 
    def example_function(self, arg1, arg2):
        pass

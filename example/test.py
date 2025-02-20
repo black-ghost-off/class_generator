@@ -20,20 +20,24 @@ class test:
    structure = np.dtype([
     ("id", np.int16),
     ("value", np.int16),
+    ("array", np.int16, (10,)),
    ])
 
    id = None 
    value = None 
+   array = None 
 
    def serialize(self):
        self.structure["id"] = self.id 
        self.structure["value"] = self.value 
+       self.structure["array"] = self.array 
        return self.structure.tobytes()
 
    def deserialize(self, data):
        deserialized_struct = np.frombuffer(data, dtype=test.struct)
        self.id = deserialized_struct["id"] 
        self.value = deserialized_struct["value"] 
+       self.array = deserialized_struct["array"] 
 
    def example_function3(self, arg1, arg2):
        pass

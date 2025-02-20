@@ -35,6 +35,9 @@ classes:
           type: int16
       - value:
           type: int16
+      - array:
+          type: int16
+          size: 10
     functions:
       - return_type: void
         name: example_function3

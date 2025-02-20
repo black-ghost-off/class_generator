@@ -20,8 +20,9 @@ void example_function2(int16_t arg1, float arg2);
 class test {
 private:
     struct Struct {
-       int16_t id;
-       int16_t value;
+    int16_t id;
+    int16_t value;
+    int16_t array[10];
     };
 public:
     test();
@@ -34,6 +35,8 @@ public:
     void set_id(int16_t value);
     int16_t get_value();
     void set_value(int16_t value);
+    int16_t get_array();
+    void set_array(int16_t value);
 
     void example_function3(int16_t arg1, float arg2);
     void example_function4(int16_t arg1, float arg2);
@@ -43,10 +46,10 @@ public:
 class system {
 private:
     struct Struct {
-       int16_t id;
-       int16_t voltage0;
-       int16_t voltage1;
-       int16_t voltage2;
+    int16_t id;
+    int16_t voltage0;
+    int16_t voltage1;
+    int16_t voltage2;
     };
 public:
     system();

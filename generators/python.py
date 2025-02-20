@@ -53,7 +53,11 @@ def gen(yaml_file, header_file):
             for field in class_info.get('fields', []):
                 for field_name, field_info in field.items():
                     field_type = utils.yaml_name_to_lang(field_info['type'], "python")
-                    file.write(f"    (\"{field_name}\", {field_type}),\n")
+                    field_size = field_info.get('size', None)
+                    if field_size is not None:
+                        file.write(f"    (\"{field_name}\", {field_type}, ({field_size},)),\n")
+                    else:
+                        file.write(f"    (\"{field_name}\", {field_type}),\n")
             file.write(f"   ])\n\n")
 
             for field in class_info.get('fields', []):

@@ -16,6 +16,7 @@ const (
 type test struct {
     id int16;
     value int16;
+    array [10]int16;
 }
 
 func test_example_function3(self test, arg1 int16, arg2 float32) {

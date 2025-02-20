@@ -20,12 +20,15 @@ void example_function2(int16_t arg1, float arg2);
 typedef struct test {
     int16_t id;
     int16_t value;
+    int16_t array[10];
 } test;
 
 int16_t test_get_id(const test* self);
 void test_set_id(test* self, int16_t value);
 int16_t test_get_value(const test* self);
 void test_set_value(test* self, int16_t value);
+int16_t test_get_array(const test* self);
+void test_set_array(test* self, int16_t value);
 
 void test_example_function3(test self, int16_t arg1, float arg2);
 void test_example_function4(test self, int16_t arg1, float arg2);

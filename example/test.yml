@@ -1,6 +1,8 @@
 defines:
   - name: MAX_BUFFER_SIZE
     value: 1024
+  - name: MAX_VALUES
+    value: 1024
 enums:
   - name: Status
     values:
@@ -11,16 +13,24 @@ enums:
       - name: TEST
         value: 10
       - name: TEST2
-
+  - name: TEST
+    values:
+      - name: OK
+        value: 0
+      - name: ERROR
+      - name: INPROGRESS
+      - name: TEST
+        value: 10
+      - name: TEST2
 functions:
-  - return_type: void
+  - return_type: int16
     name: example_function1
     params:
       - arg1:
-          type: int16
+          type: float16
       - arg2:
           type: float
-  - return_type: void
+  - return_type: int32
     name: example_function2
     params:
       - arg1:
@@ -45,14 +55,14 @@ classes:
           - arg1:
               type: int16
           - arg2:
-              type: float
+              type: float16
       - return_type: void
         name: example_function4
         params:
           - arg1:
               type: int16
           - arg2:
-              type: float
+              type: float32
   - name: system
     fields:
       - id:
@@ -70,4 +80,4 @@ classes:
           - arg1:
               type: int16
           - arg2:
-              type: float
+              type: float64

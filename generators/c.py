@@ -45,6 +45,7 @@ def gen(yaml_file, header_file):
 
         for class_info in classes:
             struct_name = class_info['name']
+            file.write(f"#pragma pack(1)\n")
             file.write(f"typedef struct {struct_name} {{\n")
             
             # Handle fields and getters/setters for C
@@ -57,7 +58,8 @@ def gen(yaml_file, header_file):
                     else:
                         file.write(f"    {field_type} {field_name};\n")
             
-            file.write(f"}} {struct_name};\n\n")
+            file.write(f"}} {struct_name};\n")
+            file.write(f"#pragma pack(pop)\n\n")
 
             for field in class_info.get('fields', []):
                 for field_name, field_info in field.items():

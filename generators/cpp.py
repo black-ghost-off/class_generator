@@ -47,6 +47,7 @@ def gen(yaml_file, header_file):
             struct_name = class_info['name']
             file.write(f"class {struct_name} {{\n")
             file.write(f"private:\n")
+            file.write(f"    #pragma pack(push, 1)\n")
             file.write(f"    struct Struct {{\n")
 
             for field in class_info.get('fields', []):
@@ -54,11 +55,12 @@ def gen(yaml_file, header_file):
                     field_type = utils.yaml_name_to_lang(field_info['type'], "c")
                     array_size = field_info.get('size', None)
                     if array_size is not None:
-                        file.write(f"    {field_type} {field_name}[{array_size}];\n")
+                        file.write(f"       {field_type} {field_name}[{array_size}];\n")
                     else:
-                        file.write(f"    {field_type} {field_name};\n")
+                        file.write(f"       {field_type} {field_name};\n")
                         
             file.write(f"    }};\n")
+            file.write(f"    #pragma pack(pop)\n\n")
 
             file.write(f"public:\n")
             file.write(f"    {struct_name}();\n")

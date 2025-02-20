@@ -19,11 +19,14 @@ void example_function2(int16_t arg1, float arg2);
 
 class test {
 private:
+    #pragma pack(push, 1)
     struct Struct {
-    int16_t id;
-    int16_t value;
-    int16_t array[10];
+       int16_t id;
+       int16_t value;
+       int16_t array[10];
     };
+    #pragma pack(pop)
+
 public:
     test();
     ~test();
@@ -45,12 +48,15 @@ public:
 
 class system {
 private:
+    #pragma pack(push, 1)
     struct Struct {
-    int16_t id;
-    int16_t voltage0;
-    int16_t voltage1;
-    int16_t voltage2;
+       int16_t id;
+       int16_t voltage0;
+       int16_t voltage1;
+       int16_t voltage2;
     };
+    #pragma pack(pop)
+
 public:
     system();
     ~system();

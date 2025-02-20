@@ -17,11 +17,13 @@ void example_function1(int16_t arg1, float arg2);
 void example_function2(int16_t arg1, float arg2);
 
 
+#pragma pack(1)
 typedef struct test {
     int16_t id;
     int16_t value;
     int16_t array[10];
 } test;
+#pragma pack(pop)
 
 int16_t test_get_id(const test* self);
 void test_set_id(test* self, int16_t value);
@@ -34,12 +36,14 @@ void test_example_function3(test self, int16_t arg1, float arg2);
 void test_example_function4(test self, int16_t arg1, float arg2);
 
 
+#pragma pack(1)
 typedef struct system {
     int16_t id;
     int16_t voltage0;
     int16_t voltage1;
     int16_t voltage2;
 } system;
+#pragma pack(pop)
 
 int16_t system_get_id(const system* self);
 void system_set_id(system* self, int16_t value);

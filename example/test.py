@@ -61,8 +61,8 @@ class test:
 
 class system: 
     structure = np.dtype([
-        ("id", np.int16),
-        ("voltage0", np.int16),
+        ("id", test),
+        ("voltage0", Status),
         ("voltage1", np.int16),
         ("voltage2", np.int16),
     ])

@@ -64,8 +64,8 @@ func test_example_function4(arg1 int16, arg2 float32)  {
 
 }
 type system struct {
-    id int16
-    voltage0 int16
+    id test
+    voltage0 Status
     voltage1 int16
     voltage2 int16
 

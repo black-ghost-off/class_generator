@@ -57,8 +57,8 @@ struct test {
 void test_example_function3(int16_t arg1, int32_t arg2);
 void test_example_function4(int16_t arg1, float arg2);
 struct system {
-    int16_t id;
-    int16_t voltage0;
+    test id;
+    Status voltage0;
     int16_t voltage1;
     int16_t voltage2;
 

@@ -66,9 +66,9 @@ classes:
   - name: system
     fields:
       - id:
-          type: int16
+          type: test
       - voltage0:
-          type: int16
+          type: Status
       - voltage1:
           type: int16
       - voltage2:

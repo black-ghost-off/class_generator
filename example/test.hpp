@@ -69,8 +69,8 @@ class system {
 private:
     #pragma pack(push, 1)
     struct Struct{
-        int16_t id;
-        int16_t voltage0;
+        test id;
+        Status voltage0;
         int16_t voltage1;
         int16_t voltage2;
     };

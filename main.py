@@ -1,7 +1,6 @@
 import yaml
 import sys
 import os
-import utils
 import generator
 
 def yaml_to_header(yaml_file, header_file, language):

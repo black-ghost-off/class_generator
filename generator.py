@@ -95,7 +95,7 @@ template_name = {
     },        
     "gen_class": {
         "python": "class {class_name}: \n    structure = np.dtype([\n{fields}    ])\n{functions}\n",
-        "c": "struct {class_name} {{\n{fields}\n}};\n{functions}",
+        "c": "#pragma pack(push, 1)\ntypedef struct {class_name} {{\n{fields}\n}} {class_name};\n#pragma pack(pop)\n{functions}",
         "cpp": "class {class_name} {{\nprivate:\n    #pragma pack(push, 1)\n    struct Struct{{\n{fields}    }};\n    #pragma pack(pop)\n\npublic:\n    {class_name}();\n    ~{class_name}();\n\n{functions}\n}};",
         "go": "type {class_name} struct {{\n{fields}\n}}\n\n{functions}"
     },
@@ -202,11 +202,18 @@ def gen_user_defines(file_string, lang, file_string_pre):
 
 def gen_enums(file_string, lang, enums):
     enums_list = ""
+    if enums is None:
+        return file_string.replace("{enums}", "")
+        
     for i, enum in enumerate(enums):
         enum_name = enum["name"]
 
         dtypes_names["yaml"].append(enum_name)
-        dtypes_names[lang].append(enum_name)
+        if(lang == "python"):
+            dtypes_names[lang].append(enum_name+".structure")
+        else:
+            dtypes_names[lang].append(enum_name)
+
 
         enum_values_string = ""
         for enum_element in enum['values']:
@@ -219,7 +226,7 @@ def gen_enums(file_string, lang, enums):
             else:
                 enum_element_count += 1
                 enum_element_string = template_name["enum_element_template"][lang][1].format(enum_name=enum_element_name, enum_value=enum_element_count)
-            enum_element_string += "\n"
+            enum_element_string += ", \n"
             enum_values_string += enum_element_string
         enum_string = template_name["enums_templates"][lang].format(enum_name=enum_name, enums=enum_values_string)
         enums_list += enum_string
@@ -271,9 +278,6 @@ def gen_class_functions_list(lang, functions, class_name):
 
         functions_list += function_text
 
-    # functions_list += "\
-
-    return functions_list
 
 def gen_classes(file_string, lang, classes):
     classes_list = ""
@@ -281,10 +285,18 @@ def gen_classes(file_string, lang, classes):
         class_name = class_["name"]
 
         dtypes_names["yaml"].append(class_name)
-        dtypes_names[lang].append(class_name)
+        if(lang == "python"):
+            dtypes_names[lang].append(class_name+".structure")
+        else:
+            dtypes_names[lang].append(class_name)
+
 
         fields = class_["fields"]
-        functions_text = gen_class_functions_list(lang, class_["functions"], class_name)
+        if class_.get("functions", None) is None:
+            class_["functions"] = []
+            functions_text = ""
+        else:
+            functions_text = gen_class_functions_list(lang, class_["functions"], class_name)
         fields_list = ""
 
         for field in class_.get('fields', []):
@@ -355,23 +367,32 @@ def gen_user_functions(file, lang, string_pre):
     file = file.replace("{user_functions}", user_functions)
     return file
 
+def gen_end(file, lang):
+    return file.replace("{end}", template_name["gen_end"][lang])
+
 def gen(yaml_file, header_file, lang):
     with open(yaml_file, 'r') as file:
         data = yaml.safe_load(file)
-    
-    classes = data.get('classes', [])
-    functions = data.get('functions', [])
-    defines = data.get('defines', [])
-    enums = data.get('enums', None)
-    
+
+    if data is None:
+        classes = []
+        functions = []
+        defines = []
+        enums = []
+    else:
+        classes = data.get('classes', [])
+        functions = data.get('functions', [])
+        defines = data.get('defines', [])
+        enums = data.get('enums', [])
+        
     save = None
     try:
         with open(header_file, 'r') as file:
             save = file.read()
-    except:
-        save = ""
+    except FileNotFoundError:
+        pass
             
-    with open("./file_structure.txt", 'r') as file_structure:
+    with open(os.path.join(os.path.dirname(__file__), "file_structure.txt"), 'r') as file_structure:
         file_structure_string = file_structure.read()
         
         file_structure_string = gen_user_header(file_structure_string, lang, save)
@@ -388,6 +409,7 @@ def gen(yaml_file, header_file, lang):
         file_structure_string = gen_enums(file_structure_string, lang, enums)
         file_structure_string = gen_classes(file_structure_string, lang, classes)
         file_structure_string = gen_functions(file_structure_string, lang, functions)
+        file_structure_string = gen_end(file_structure_string, lang)
 
     with open(header_file, 'w') as file:
         file.write(file_structure_string) 

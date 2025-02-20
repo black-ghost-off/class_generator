@@ -45,3 +45,7 @@
 ->USER_CODE_BEGIN functions
 {user_functions}
 ->USER CODE END
+
+->CODE_BEGIN functions
+{end}
+->CODE_END

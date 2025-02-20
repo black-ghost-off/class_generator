@@ -204,6 +204,10 @@ def gen_enums(file_string, lang, enums):
     enums_list = ""
     for i, enum in enumerate(enums):
         enum_name = enum["name"]
+
+        dtypes_names["yaml"].append(enum_name)
+        dtypes_names[lang].append(enum_name)
+
         enum_values_string = ""
         for enum_element in enum['values']:
             enum_element_name = enum_element['name']
@@ -275,6 +279,10 @@ def gen_classes(file_string, lang, classes):
     classes_list = ""
     for i, class_ in enumerate(classes):
         class_name = class_["name"]
+
+        dtypes_names["yaml"].append(class_name)
+        dtypes_names[lang].append(class_name)
+
         fields = class_["fields"]
         functions_text = gen_class_functions_list(lang, class_["functions"], class_name)
         fields_list = ""

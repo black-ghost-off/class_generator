@@ -27,8 +27,8 @@ void test_set_id(test* self, int16_t value);
 int16_t test_get_value(const test* self);
 void test_set_value(test* self, int16_t value);
 
-void test_example_function3(struct test, int16_t arg1, float arg2);
-void test_example_function4(struct test, int16_t arg1, float arg2);
+void test_example_function3(test self, int16_t arg1, float arg2);
+void test_example_function4(test self, int16_t arg1, float arg2);
 
 
 typedef struct system {
@@ -47,7 +47,7 @@ void system_set_voltage1(system* self, int16_t value);
 int16_t system_get_voltage2(const system* self);
 void system_set_voltage2(system* self, int16_t value);
 
-void system_example_function(struct system, int16_t arg1, float arg2);
+void system_example_function(system self, int16_t arg1, float arg2);
 
 
 #endif // EXAMPLE_TEST_H

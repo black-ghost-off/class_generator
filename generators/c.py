@@ -68,6 +68,6 @@ def gen(yaml_file, header_file):
                     for param_name, param_info in param.items():
                         param_type = utils.yaml_name_to_lang(param_info['type'], 'c')
                         param_list.append(f"{param_type} {param_name}")
-                file.write(f"{utils.yaml_name_to_lang(function['return_type'], 'c')} {struct_name}_{function['name']}(struct {struct_name}, {', '.join(param_list)});\n")
+                file.write(f"{utils.yaml_name_to_lang(function['return_type'], 'c')} {struct_name}_{function['name']}({struct_name} self, {', '.join(param_list)});\n")
             file.write(f"\n\n")
         file.write(f"#endif // {utils.replace_letters_with_underscore(header_file.upper())}")

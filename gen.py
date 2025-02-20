@@ -5,6 +5,7 @@ import utils
 import generators.c
 import generators.cpp
 import generators.python
+import generators.go
 
 def yaml_to_header(yaml_file, header_file, language):
         if language.lower() == "c":
@@ -13,6 +14,8 @@ def yaml_to_header(yaml_file, header_file, language):
             generators.cpp.gen(yaml_file, header_file)
         elif language.lower() == "python":
             generators.python.gen(yaml_file, header_file)
+        elif language.lower() == "go":
+            generators.go.gen(yaml_file, header_file)
 
 def generate_files(yaml_file):
     base_name = os.path.splitext(yaml_file)[0]

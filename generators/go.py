@@ -13,8 +13,6 @@ def gen(yaml_file, header_file):
     enums = data.get('enums', [])
     
     with open(header_file, 'w') as file:
-        file.write("// Generated Go code\n\n")
-
         file.write("package main\n\n")
         
         for define in defines:
@@ -48,7 +46,7 @@ def gen(yaml_file, header_file):
                         file.write(f"    {field_name} [{field_size}]{field_type};\n")
                     else:
                         file.write(f"    {field_name} {field_type};\n")
-                        
+
             file.write("}\n\n")
 
             for function in class_.get('functions', []):

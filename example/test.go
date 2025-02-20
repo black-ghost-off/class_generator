@@ -1,5 +1,3 @@
-// Generated Go code
-
 package main
 
 const MAX_BUFFER_SIZE = 1024

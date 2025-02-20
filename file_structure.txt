@@ -6,6 +6,8 @@
 {user_header}
 ->USER_CODE_END
 
+
+
 ->CODE_BEGIN include
 {includes}
 ->CODE_END
@@ -13,6 +15,8 @@
 ->USER_CODE_BEGIN includes
 {user_includes}
 ->USER CODE END
+
+
 
 ->CODE_BEGIN defines
 {defines}
@@ -22,6 +26,8 @@
 {user_defines}
 ->USER CODE END
 
+
+
 ->CODE_BEGIN enums
 {enums}
 ->CODE_END
@@ -29,6 +35,8 @@
 ->USER_CODE_BEGIN enums
 {user_enums}
 ->USER CODE END
+
+
 
 ->CODE_BEGIN classes
 {classes}
@@ -38,6 +46,8 @@
 {user_classes}
 ->USER CODE END
 
+
+
 ->CODE_BEGIN functions
 {functions}
 ->CODE_END
@@ -45,6 +55,8 @@
 ->USER_CODE_BEGIN functions
 {user_functions}
 ->USER CODE END
+
+
 
 ->CODE_BEGIN functions
 {end}
